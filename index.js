@@ -20,7 +20,7 @@ async function run() {
         await client.connect();
         const database = client.db('exploreWorld');
         const servicesCollection = database.collection('services');
-
+        const bookCollection = database.collection('mybookings');
         //GET API
         app.get('/services', async (req, res) => {
             const cursor = servicesCollection.find({});
@@ -31,7 +31,6 @@ async function run() {
         //GET Single service
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
-            console.log('mew', id);
             const query = { _id: ObjectId(id) };
             const service = await servicesCollection.findOne(query);
             res.json(service);
@@ -40,10 +39,8 @@ async function run() {
         //POST API
         app.post('/services', async (req, res) => {
             const service = req.body;
-            console.log('hit the post api', service);
 
             const result = await servicesCollection.insertOne(service);
-            console.log(result);
             res.json(result)
 
         })
@@ -55,7 +52,26 @@ async function run() {
             const result = await servicesCollection.deleteOne(query);
             res.json(result);
         })
+        //add booking
+        app.post('/mybookings', async (req, res) => {
+            await bookCollection.insertOne(req.body).then((result) => {
+                res.send(result)
+            })
 
+        })
+        //get my bookings
+        app.get('/mybookings/:email', async (req, res) => {
+
+            const result = await bookCollection.find({ email: req.params.email }).toArray();
+            res.send(result);
+        })
+        //GET Single service
+        // app.get('/mybookings/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const query = { email: ObjectId(email) };
+        //     const service = await servicesCollection.findOne(query);
+        //     res.json(service);
+        // })
     }
     finally {
         // await client.close();
@@ -69,5 +85,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('running fawzan travel on port', port);
+    // console.log('running fawzan travel on port', port);
 })
