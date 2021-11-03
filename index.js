@@ -65,13 +65,6 @@ async function run() {
             const result = await bookCollection.find({ email: req.params.email }).toArray();
             res.send(result);
         })
-        //GET Single service
-        // app.get('/mybookings/:email', async (req, res) => {
-        //     const email = req.params.email;
-        //     const query = { email: ObjectId(email) };
-        //     const service = await servicesCollection.findOne(query);
-        //     res.json(service);
-        // })
     }
     finally {
         // await client.close();
