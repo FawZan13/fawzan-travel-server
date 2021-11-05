@@ -80,12 +80,12 @@ async function run() {
         });
 
         //update status
-        app.put("/updateStatus/:id", (req, res) => {
+        app.put("/updateStatus/:id", async (req, res) => {
             const id = req.params.id;
             const updatedStatus = req.body.status;
             const filter = { _id: ObjectId(id) };
             console.log(updatedStatus);
-            bookCollection
+            await bookCollection
                 .updateOne(filter, {
                     $set: { status: updatedStatus },
                 })
