@@ -78,6 +78,21 @@ async function run() {
             const result = await bookCollection.find({}).toArray();
             res.send(result);
         });
+
+        //update status
+        app.put("/updateStatus/:id", (req, res) => {
+            const id = req.params.id;
+            const updatedStatus = req.body.status;
+            const filter = { _id: ObjectId(id) };
+            console.log(updatedStatus);
+            bookingsCollection
+                .updateOne(filter, {
+                    $set: { status: updatedStatus },
+                })
+                .then((result) => {
+                    res.send(result);
+                });
+        });
     }
     finally {
         // await client.close();
