@@ -75,7 +75,7 @@ async function run() {
 
         // all bookings
         app.get("/allBookings", async (req, res) => {
-            const result = await bookingsCollection.find({}).toArray();
+            const result = await bookCollection.find({}).toArray();
             res.send(result);
         });
     }
