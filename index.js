@@ -61,9 +61,9 @@ async function run() {
         })
         //get my bookings
         app.get('/mybookings/:email', async (req, res) => {
-
             const result = await bookCollection.find({ email: req.params.email }).toArray();
             res.send(result);
+            console.log(result)
         })
     }
     finally {
