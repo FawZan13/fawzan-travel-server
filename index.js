@@ -63,8 +63,15 @@ async function run() {
         app.get('/mybookings/:email', async (req, res) => {
             const result = await bookCollection.find({ email: req.params.email }).toArray();
             res.send(result);
-            console.log(result)
-        })
+        });
+
+        //delete booking
+        app.delete("/deleteBooking/:id", async (req, res) => {
+            const result = await bookCollection.deleteOne({
+                _id: ObjectId(req.params.id),
+            });
+            res.send(result);
+        });
     }
     finally {
         // await client.close();
