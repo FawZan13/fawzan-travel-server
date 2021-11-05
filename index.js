@@ -72,6 +72,12 @@ async function run() {
             });
             res.send(result);
         });
+
+        // all bookings
+        app.get("/allBookings", async (req, res) => {
+            const result = await bookingsCollection.find({}).toArray();
+            res.send(result);
+        });
     }
     finally {
         // await client.close();
