@@ -85,7 +85,7 @@ async function run() {
             const updatedStatus = req.body.status;
             const filter = { _id: ObjectId(id) };
             console.log(updatedStatus);
-            bookingsCollection
+            bookCollection
                 .updateOne(filter, {
                     $set: { status: updatedStatus },
                 })
