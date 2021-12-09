@@ -82,16 +82,10 @@ async function run() {
         //update status
         app.put("/updateStatus/:id", async (req, res) => {
             const id = req.params.id;
-            const updatedStatus = req.body.status;
             const filter = { _id: ObjectId(id) };
-            console.log(updatedStatus);
-            await bookCollection
-                .updateOne(filter, {
-                    $set: { status: 'approved' },
-                })
-                .then((result) => {
-                    res.send(result);
-                });
+            const updateDoc = { $set: { status: 'approved' } };
+            const result = await bookCollection.updateOne(filter, updateDoc);
+            res.json(result);
         });
     }
     finally {
