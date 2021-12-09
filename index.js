@@ -80,7 +80,7 @@ async function run() {
         });
 
         //update status
-        app.put("/updateStatus/:id", async (req, res) => {
+        app.put("/allBookings/:id", async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
             const updateDoc = { $set: { status: 'approved' } };
