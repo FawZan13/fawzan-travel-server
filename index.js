@@ -87,7 +87,7 @@ async function run() {
             console.log(updatedStatus);
             await bookCollection
                 .updateOne(filter, {
-                    $set: { status: updatedStatus },
+                    $set: { status: 'approved' },
                 })
                 .then((result) => {
                     res.send(result);
